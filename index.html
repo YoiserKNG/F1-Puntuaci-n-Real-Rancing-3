@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi App F1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #121212;
+      color: #fff;
+    }
+
+    header {
+      background: #e10600;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background: #1e1e1e;
+      padding: 10px;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    nav button:hover {
+      color: #e10600;
+    }
+
+    section {
+      display: none;
+      padding: 20px;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    .table-container {
+      margin-top: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table, th, td {
+      border: 1px solid #444;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+
+    .btn {
+      margin-top: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #e10600;
+      color: white;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #b00400;
+    }
+
+    .ruleta {
+      margin: 20px auto;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 5px solid #e10600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>🏎️ Mi App F1</header>
+
+<nav>
+  <button onclick="mostrarSeccion('puntos')">🏁 Puntos</button>
+  <button onclick="mostrarSeccion('perfil')">👤 Perfil</button>
+  <button onclick="mostrarSeccion('historial')">📂 Guardados</button>
+</nav>
+
+<!-- Sección de Puntos -->
+<section id="puntos" class="active">
+  <h2>Puntuación GP</h2>
+  <div class="table-container">
+    <table>
+      <tr><th>Posición</th><th>Puntos</th></tr>
+      <tr><td>1</td><td>25</td></tr>
+      <tr><td>2</td><td>18</td></tr>
+      <tr><td>3</td><td>15</td></tr>
+      <tr><td>4</td><td>12</td></tr>
+      <tr><td>5</td><td>10</td></tr>
+      <tr><td>6</td><td>8</td></tr>
+      <tr><td>7</td><td>6</td></tr>
+      <tr><td>8</td><td>4</td></tr>
+      <tr><td>9</td><td>2</td></tr>
+      <tr><td>10 - 20</td><td>0</td></tr>
+    </table>
+  </div>
+
+  <h3>Ruleta Sprint</h3>
+  <div class="ruleta" id="ruleta">Gira 🎡</div>
+  <button class="btn" onclick="girarRuleta()">Girar</button>
+</section>
+
+<!-- Sección Perfil -->
+<section id="perfil">
+  <h2>Perfil del Jugador</h2>
+  <label>Nombre: <input type="text" id="nombreJugador" placeholder="Tu nombre"></label>
+  <div class="table-container">
+    <h3>Estadísticas</h3>
+    <p>Podios: <span id="podios">0</span></p>
+    <p>Campeonatos: <span id="campeonatos">0</span></p>
+    <p>Subcampeonatos: <span id="subcampeonatos">0</span></p>
+  </div>
+</section>
+
+<!-- Sección Historial -->
+<section id="historial">
+  <h2>Temporadas Guardadas</h2>
+  <div id="listaTemporadas"></div>
+  <button class="btn" onclick="guardarTemporada()">💾 Guardar temporada</button>
+</section>
+
+<script>
+  function mostrarSeccion(id) {
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  }
+
+  // Ruleta Sprint
+  const pistas = ["Monza 🇮🇹","Silverstone 🇬🇧","Spa 🇧🇪","Suzuka 🇯🇵","Interlagos 🇧🇷","Mónaco 🇲🇨","Austin 🇺🇸","Barcelona 🇪🇸"];
+  let usadas = [];
+
+  function girarRuleta() {
+    if (usadas.length === pistas.length) {
+      document.getElementById("ruleta").innerText = "Todas usadas ✅";
+      return;
+    }
+    let pista;
+    do {
+      pista = pistas[Math.floor(Math.random() * pistas.length)];
+    } while (usadas.includes(pista));
+
+    usadas.push(pista);
+    document.getElementById("ruleta").innerText = pista;
+  }
+
+  // Guardar temporada (simulado)
+  let contador = 1;
+  function guardarTemporada() {
+    const nombre = document.getElementById("nombreJugador").value || "Jugador";
+    const div = document.createElement("div");
+    div.innerHTML = `<p>Temporada ${contador}: ${nombre} 🏆</p>`;
+    document.getElementById("listaTemporadas").appendChild(div);
+    contador++;
+  }
+</script>
+
+</body>
+</html>
