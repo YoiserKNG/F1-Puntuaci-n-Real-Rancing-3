@@ -4,3 +4,4 @@ Simulador en **HTML, CSS y JavaScript** para calcular puntos de F1 al estilo *Re
 Incluye GP normales, Sprints con ruleta 🎡, perfil del piloto, historial de temporadas y exportación a Excel.  
 
 👉 Juega tu propia temporada y compite por el campeonato 🏆
+https://yoiserkng.github.io/F1-Puntuaci-n-Real-Rancing-3/
